@@ -15,6 +15,6 @@
         <property name="show_sql">true</property>
         <property name="hbm2ddl.auto">create-drop</property>
         <property name="current_session_context_class">thread</property>
-        <mapping class="com.geekbrains.hibernate.Person"/>
+        <mapping class="com.geek.model.Product"/>
     </session-factory>
 </hibernate-configuration>
