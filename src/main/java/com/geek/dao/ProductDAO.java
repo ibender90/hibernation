@@ -1,6 +1,8 @@
 package com.geek.dao;
 
+import com.geek.model.Customer;
 import com.geek.model.Product;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
@@ -12,4 +14,6 @@ public interface ProductDAO {
 
     void save(Product product);
     void updateProductNameById(Long id, String newName);
+
+    List<Customer> getCustomersWhoPurchasedThisProduct(Long id);
 }

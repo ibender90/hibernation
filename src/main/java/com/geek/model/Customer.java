@@ -1,12 +1,11 @@
 package com.geek.model;
 
 import jakarta.persistence.*;
-
 import java.util.List;
 
 @Entity
-@Table(name = "products")
-public class Product {
+@Table(name = "customers")
+public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -14,17 +13,15 @@ public class Product {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "price")
-    private Double price;
-
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "customers_products",
-            joinColumns = @JoinColumn(name = "product_id"),
-            inverseJoinColumns = @JoinColumn(name = "customer_id")
+            joinColumns = @JoinColumn(name = "customer_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id")
     )
-    private List<Customer> customers;
-    public Product() {
+    private List<Product> products;
+
+    public Customer() {
     }
 
     public Long getId() {
@@ -43,25 +40,17 @@ public class Product {
         this.name = name;
     }
 
-    public Double getPrice() {
-        return price;
+    public List<Product> getProducts() {
+        return products;
     }
 
-    public void setPrice(Double price) {
-        this.price = price;
-    }
-
-    public List<Customer> getCustomers() {
-        return customers;
-    }
-
-    public void setCustomers(List<Customer> customers) {
-        this.customers = customers;
+    public void setProducts(List<Product> products) {
+        this.products = products;
     }
 
     @Override
     public String toString() {
-        return "Product{" +
+        return "Customer{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 '}';
