@@ -1,15 +1,19 @@
 package com.geek.dao;
 
+import com.geek.model.Customer;
 import com.geek.model.Product;
 import com.geek.utils.SessionFactoryUtils;
 import org.hibernate.Session;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
-
+@Component
 public class ProductDAOimpl implements ProductDAO {
     private SessionFactoryUtils sessionFactoryUtils;
 
-    public ProductDAOimpl(SessionFactoryUtils sessionFactoryUtils) {
+    @Autowired
+    public void setSessionFactoryUtils(SessionFactoryUtils sessionFactoryUtils) {
         this.sessionFactoryUtils = sessionFactoryUtils;
     }
 
@@ -60,6 +64,17 @@ public class ProductDAOimpl implements ProductDAO {
             session.beginTransaction();
             session.get(Product.class, id).setName(newName);
             session.getTransaction().commit();
+        }
+    }
+
+    @Override
+    public List<Customer> getCustomersWhoPurchasedThisProduct(Long id) {
+        try(Session session = sessionFactoryUtils.getSession()){
+            session.beginTransaction();
+            Product product = session.get(Product.class, id);
+            List<Customer> customersWhoPurchasedThisProduct = product.getCustomers();
+            session.getTransaction().commit();
+            return customersWhoPurchasedThisProduct;
         }
     }
 }
